@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Item Management</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <h1>Item Management</h1>
+
+  <form id="item-form">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required placeholder="ex. Car Jack">
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description" placeholder="ex. Good for lifting cars.">
+    <button type="submit">Add Item</button>
+  </form>
+
+  <table id="item-table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr id="no-items-row">
+      <td colspan="4">No items available</td>
+    </tr>
+      <!-- Item rows will be added here dynamically -->
+    </tbody>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+</html>
