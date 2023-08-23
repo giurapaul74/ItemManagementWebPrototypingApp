@@ -2,7 +2,9 @@ const form = document.getElementById('item-form');
 const tableBody = document.querySelector('#item-table tbody');
 
 // Initial load of items
-loadItems();
+loadItems().then(() => {
+    console.log("Items are loaded.");
+});
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -28,17 +30,19 @@ async function loadItems() {
     const response = await fetch('/items');
     const items = await response.json();
 
-    tableBody.innerHTML = ''; // Clear the table content
-
-    if (items.length === 0) {
-        document.getElementById('no-items-row').style.display = 'table-row';
-    } else {
-        document.getElementById('no-items-row').style.display = 'none';
+    while (tableBody.firstChild) {
+        tableBody.removeChild(tableBody.firstChild);
     }
 
-    items.forEach(item => {
-        appendItemToTable(item);
-    });
+    if (items.length === 0) {
+        const noItemsRow = createNoItemsRow();
+        tableBody.appendChild(noItemsRow);
+    }
+    else {
+        items.forEach(item => {
+            appendItemToTable(item);
+        });
+    }
 }
 
 function appendItemToTable(item) {
@@ -56,7 +60,14 @@ function appendItemToTable(item) {
     tableBody.appendChild(row);
 }
 
-// TODO: Implement updateTableRow() and deleteTableRow() functions
+function createNoItemsRow() {
+    const row = document.createElement('tr');
+    const cell = document.createElement('td');
+    cell.colSpan = 4;
+    cell.textContent = 'No items available';
+    row.appendChild(cell);
+    return row;
+}
 
 function updateTableRow(itemId, updatedItem) {
     const tableRow = document.querySelector(`tr[data-id="${itemId}"]`);
