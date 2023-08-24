@@ -7,15 +7,6 @@
 </head>
 <body>
   <h1>Item Management</h1>
-
-  <form id="item-form">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required placeholder="ex. Car Jack">
-    <label for="description">Description:</label>
-    <input type="text" id="description" name="description" placeholder="ex. Good for lifting cars.">
-    <button type="submit">Add Item</button>
-  </form>
-
   <table id="item-table">
     <thead>
     <tr>
@@ -32,6 +23,8 @@
       <!-- Item rows will be added here dynamically -->
     </tbody>
   </table>
+
+  <button type="button" id="addButton">Add Item</button>
 
   <script src="script.js"></script>
 </body>

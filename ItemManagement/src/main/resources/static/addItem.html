@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add an Item</title>
+</head>
+<body>
+  <form id="add-item-form">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required placeholder="ex. Car Jack">
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description" placeholder="ex. Good for lifting cars.">
+    <button type="submit">Add Item</button>
+  </form>
+
+  <a href="index.html">Back to Main</a>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const addItemForm = document.getElementById('add-item-form');
+
+      addItemForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const itemName = document.getElementById('name').value;
+        const itemDescription = document.getElementById('description').value;
+
+        const newItem = {
+          name: itemName,
+          description: itemDescription
+        };
+
+        const response = await fetch('/items', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newItem)
+        });
+
+        if (response.ok) {
+          // Redirect back to the main page after successful addition
+          window.location.href = 'index.html';
+        } else {
+          // Handle error
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -5,7 +5,7 @@ const tableBody = document.querySelector('#item-table tbody');
 loadItems().then(() => {
     console.log("Items are loaded.");
 });
-form.addEventListener('submit', async (e) => {
+/*form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const name = document.getElementById('name').value;
@@ -24,7 +24,7 @@ form.addEventListener('submit', async (e) => {
         appendItemToTable(newItem);
         form.reset();
     }
-});
+});*/
 
 async function loadItems() {
     const response = await fetch('/items');
@@ -69,22 +69,6 @@ function createNoItemsRow() {
     return row;
 }
 
-function updateTableRow(itemId, updatedItem) {
-    const tableRow = document.querySelector(`tr[data-id="${itemId}"]`);
-    if (tableRow) {
-        tableRow.innerHTML = `
-            <td>${updatedItem.id}</td>
-            <td>${updatedItem.name}</td>
-            <td>${updatedItem.description}</td>
-            <td>
-                <button class="btn-update" data-id="${updatedItem.id}">Update</button>
-                <button class="btn-delete" data-id="${updatedItem.id}">Delete</button>
-            </td>
-        `;
-        updateTableRow(itemId, updatedItem);
-    }
-}
-
 function deleteTableRow(itemId) {
     const tableRow = document.querySelector(`tr[data-id="${itemId}"]`);
     if (tableRow) {
@@ -97,32 +81,9 @@ tableBody.addEventListener('click', async (event) => {
 
     if (target.classList.contains('btn-update')) {
         const itemId = target.getAttribute('data-id');
-        const response = await fetch(`/items/${itemId}`);
-        const item = await response.json();
 
-        const updatedName = prompt('Enter the updated name:', item.name);
-        const updatedDescription = prompt('Enter the updated description:', item.description);
-
-        if (updatedName !== null && updatedDescription !== null) {
-            const updatedItem = {
-                id: item.id,
-                name: updatedName,
-                description: updatedDescription
-            };
-
-            fetch(`/items/${item.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(updatedItem)
-            })
-                .then(response => {
-                    if (response.ok) {
-                        updateTableRow(item.id, updatedItem);
-                    }
-                });
-        }
+        // Navigate to the update page with the selected item's ID as a query parameter
+        window.location.href = `updateItem.html?id=${itemId}`;
     }
 
     if (target.classList.contains('btn-delete')) {
@@ -140,6 +101,12 @@ tableBody.addEventListener('click', async (event) => {
                 });
         }
     }
+});
+
+const addButton = document.getElementById('addButton');
+
+addButton.addEventListener('click', () => {
+    window.location.href = 'addItem.html'; // Redirect to AddItem page
 });
 
 function createTableRow(item) {
