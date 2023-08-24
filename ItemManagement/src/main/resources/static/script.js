@@ -5,26 +5,6 @@ const tableBody = document.querySelector('#item-table tbody');
 loadItems().then(() => {
     console.log("Items are loaded.");
 });
-/*form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const name = document.getElementById('name').value;
-    const description = document.getElementById('description').value;
-
-    const response = await fetch('/items', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name, description })
-    });
-
-    if (response.ok) {
-        const newItem = await response.json();
-        appendItemToTable(newItem);
-        form.reset();
-    }
-});*/
 
 async function loadItems() {
     const response = await fetch('/items');
@@ -98,6 +78,17 @@ tableBody.addEventListener('click', async (event) => {
                     if (response.ok) {
                         deleteTableRow(itemId);
                     }
+                    else{
+                        return response.json();
+                    }
+                })
+                .then(errorData => {
+                    if (errorData){
+                        console.error("Delete Error: ", errorData.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Unexpected error: ", error);
                 });
         }
     }

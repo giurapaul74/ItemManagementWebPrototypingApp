@@ -7,6 +7,7 @@ updateItemForm.addEventListener('submit', async (e) => {
 
     const updatedName = document.getElementById('updatedName').value;
     const updatedDescription = document.getElementById('updatedDescription').value;
+    const errorMessageElement = document.getElementById("error-message");
 
     const updatedItem = {
         id: Number(itemId),
@@ -22,12 +23,21 @@ updateItemForm.addEventListener('submit', async (e) => {
         body: JSON.stringify(updatedItem)
     });
 
-    if (response.ok) {
-        // Redirect back to the main page after successful update
-        updateTableRow(itemId, updatedItem);
-        window.location.href = 'index.html';
-    } else {
-        // Handle error
+    try{
+        if (response.ok) {
+            // Redirect back to the main page after successful update
+            updateTableRow(itemId, updatedItem);
+            window.location.href = 'index.html';
+        } else {
+            // Handle error
+            const errorData = await response.json();
+            errorMessageElement.textContent = errorData.message;
+            console.error("Error: ", errorData.message);
+        }
+    }
+    catch (error){
+        errorMessageElement.textContent = 'An unexpected error occurred. Please try again.'; // Display a generic error message
+        console.error("Error: ", error.message);
     }
 });
 
