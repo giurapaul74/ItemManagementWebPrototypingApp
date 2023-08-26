@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Add an Item</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom-button.css">
+    <link rel="stylesheet" href="css/container.css">
 </head>
 <body>
-  <form id="add-item-form">
+<h1 class="centered-container">Add Item</h1>
+
+  <form id="add-item-form" class="input-container">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" required placeholder="ex. Car Jack">
     <label for="description">Description:</label>
     <input type="text" id="description" name="description" placeholder="ex. Good for lifting cars.">
-    <button type="submit">Add Item</button>
+    <button type="submit" class="button-41">Add</button>
   </form>
 
   <div id="error-message" style="color: red;"></div>
@@ -60,5 +65,6 @@
       });
     });
   </script>
+  <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

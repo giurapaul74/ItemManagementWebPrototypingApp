@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Update the Item</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom-button.css">
+    <link rel="stylesheet" href="css/container.css">
 </head>
 <body>
-<h1>Update the Item</h1>
+<h1 class="centered-container">Update the Item</h1>
 
-<form id="update-item-form">
+<form id="update-item-form" class="input-container">
     <input type="hidden" id="itemId">
     <label for="updatedName">Updated Name:</label>
-    <input type="text" id="updatedName" name="updatedName" required>
+    <input type="text" id="updatedName" name="updatedName" required placeholder="ex. New Item Set">
     <label for="updatedDescription">Updated Description:</label>
-    <input type="text" id="updatedDescription" name="updatedDescription">
-    <button type="submit">Update Item</button>
+    <input type="text" id="updatedDescription" name="updatedDescription" placeholder="ex. This is a new item description. Intriguing!">
+    <button type="submit" class="button-41">Update</button>
 </form>
 
 <div id="error-message" style="color: red;"></div>
@@ -21,5 +24,6 @@
 <a href="index.html">Back to Main</a>
 
 <script src="updateScript.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

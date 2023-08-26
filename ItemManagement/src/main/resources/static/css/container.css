@@ -1,0 +1,12 @@
+.centered-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Horizontally center-align contents */
+    justify-content: center; /* Vertically center-align contents */
+}
+
+.input-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adjust the gap between input fields */
+}

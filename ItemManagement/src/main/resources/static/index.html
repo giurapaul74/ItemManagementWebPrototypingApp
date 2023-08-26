@@ -3,29 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Item Management</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom-button.css">
+    <link rel="stylesheet" href="css/container.css">
 </head>
 <body>
+<div class="centered-container">
   <h1>Item Management</h1>
-  <table id="item-table">
+  <table id="item-table" class="table table-bordered table-striped">
     <thead>
     <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Actions</th>
+      <th class="border p-3">ID</th>
+      <th class="border p-3">Name</th>
+      <th class="border p-3">Description</th>
+      <th class="border p-3">Actions</th>
     </tr>
     </thead>
     <tbody>
-    <tr id="no-items-row">
-      <td colspan="4">No items available</td>
+    <tr id="no-items-row" class="border p-3">
+      <td colspan="4" class="border p-3">No items available</td>
     </tr>
-      <!-- Item rows will be added here dynamically -->
+    <!-- Item rows will be added here dynamically -->
     </tbody>
   </table>
+</div>
 
-  <button type="button" id="addButton">Add Item</button>
+  <div class="button-container">
+    <button type="button" id="addButton" class="button-41">Add Item</button>
+  </div>
 
   <script src="script.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
