@@ -13,8 +13,12 @@
   <form id="add-item-form" class="input-container">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" required placeholder="ex. Car Jack">
+      <div class="error-message" id="name-error"></div>
+
     <label for="description">Description:</label>
     <input type="text" id="description" name="description" placeholder="ex. Good for lifting cars.">
+      <div class="error-message" id="description-error"></div>
+
     <button type="submit" class="button-41">Add</button>
   </form>
 
@@ -33,35 +37,60 @@
         const itemName = document.getElementById('name').value;
         const itemDescription = document.getElementById('description').value;
 
-        const newItem = {
-          name: itemName,
-          description: itemDescription
-        };
+        const nameError = document.getElementById('name-error');
+        const descriptionError = document.getElementById('description-error');
 
-        try {
-          const response = await fetch('/items', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newItem)
-          });
+          // Reset previous error messages
+          nameError.textContent = '';
+          descriptionError.textContent = '';
 
-          if (response.ok) {
-            // Redirect back to the main page after successful addition
-            window.location.href = 'index.html';
-          } else {
-            // Handle error
-            const errorData = await response.json(); // Assuming the server sends error data in JSON format
-            errorMessageElement.textContent = errorData.message; // Display error message to the user
-            console.error('Error:', errorData.message); // Log the error message
-            // You can also display the error message to the user or take other actions
+          // Perform validation
+          let isValid = true;
+
+          if (!itemName) {
+              nameError.textContent = 'Name is required';
+              isValid = false;
           }
-        } catch (error) {
-          errorMessageElement.textContent = 'An unexpected error occurred. Please try again.'; // Display a generic error message
-          console.error('Error:', error.message); // Log any unexpected errors
-          // You can display a generic error message to the user or take other actions
-        }
+          else {
+              // Check against special characters
+              const specialCharacters = /^[A-Za-z0-9\-\.]*$/; // Match anything that is not "-"
+              if (specialCharacters.test(itemName)) {
+                  nameError.textContent = 'Name can only contain letters, numbers, hyphen, and dots.';
+                  isValid = false;
+              }
+          }
+
+          if (isValid){
+              const newItem = {
+                  name: itemName,
+                  description: itemDescription
+              };
+
+              try {
+                  const response = await fetch('/items', {
+                      method: 'POST',
+                      headers: {
+                          'Content-Type': 'application/json'
+                      },
+                      body: JSON.stringify(newItem)
+                  });
+
+                  if (response.ok) {
+                      // Redirect back to the main page after successful addition
+                      window.location.href = 'index.html';
+                  } else {
+                      // Handle error
+                      const errorData = await response.json(); // Assuming the server sends error data in JSON format
+                      errorMessageElement.textContent = errorData.message; // Display error message to the user
+                      console.error('Error:', errorData.message); // Log the error message
+                      // You can also display the error message to the user or take other actions
+                  }
+              } catch (error) {
+                  errorMessageElement.textContent = 'An unexpected error occurred. Please try again.'; // Display a generic error message
+                  console.error('Error:', error.message); // Log any unexpected errors
+                  // You can display a generic error message to the user or take other actions
+              }
+          }
       });
     });
   </script>
